@@ -1,0 +1,21 @@
+{
+  "development": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": ""
+  },
+  "test": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "",
+    "logging": false
+  },
+  "production": {
+    "use_env_variable": "",
+    "dialect": ""
+  }
+}
