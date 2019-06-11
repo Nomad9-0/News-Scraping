@@ -24,9 +24,10 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set("view engine", "handlebars");
 
 // Mongoose connection
-mongoose.connect("mongodb://localhost/News-Scraping");
+const MONGODB_URI = (process.env.MONGODB_URI || "mongodb://localhost/News-Scraping");
+mongoose.connect(MONGODB_URI);
 const db = mongoose.connection;
-
+// db err catcher
 db.on('error', console.error.bind(console, "connection error"));
 db.once("open", function() {
   console.log("Connected to Mongoose");
