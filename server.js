@@ -19,8 +19,8 @@ app.use(
 
 app.use(express.static(process.cwd() + "/public"));
 
+// Handlebars
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-
 app.set("view engine", "handlebars");
 
 // Mongoose connection
