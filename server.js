@@ -1,39 +1,38 @@
-require("dotenv").config();
+// Dependencies
 const express = require("express");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const axios = require("axios");
+const cheerio = require("cheerio");
+const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 
-const db = require("./models");
-
+// Initialize Express
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static("public"));
-
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
+app.use(logger("dev"));
+app.use(
+  bodyParser.urlencoded({
+    extended: false
   })
 );
+
+app.use(express.static(process.cwd() + "/public"));
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+
 app.set("view engine", "handlebars");
 
-// Routes
+// Mongoose connection
+mongoose.connect("mongodb://localhost/News-Scraping");
+const db = mongoose.connection;
 
-
-
-// Starting the server, syncing models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
-  });
+db.on('error', console.error.bind(console, "connection error"));
+db.once("open", function() {
+  console.log("Connected to Mongoose");
 });
 
-module.exports = app;
+// Port
+app.listen(3000, function() {
+  console.log("App running on port 3000!");
+});
