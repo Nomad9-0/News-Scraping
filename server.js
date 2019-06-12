@@ -10,7 +10,7 @@ var app = express();
 app.use(express.static("public"));
 var PORT = process.env.PORT || 3000;
 var db = require("./models");
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdb";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://<dbuser>:<dbpassword>@ds133187.mlab.com:33187/heroku_j9pjp2fz";
 
 mongoose.connect(MONGODB_URI);
 
